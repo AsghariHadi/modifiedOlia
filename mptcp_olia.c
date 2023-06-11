@@ -131,6 +131,7 @@ static void mptcp_get_epsilon(const struct mptcp_cb *mpcb)
 			      ca->mptcp_loss2 - ca->mptcp_loss1);
 
 		if ((u64)tmp_int * best_rtt >= (u64)best_int * tmp_rtt) {
+			printk("the best rtt is %d",tmp_rtt);
 			best_rtt = tmp_rtt;
 			best_int = tmp_int;
 		}
@@ -252,7 +253,7 @@ static void mptcp_olia_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 	}
 	
 	printk("rtt is (Average of RTTs): %d", tp->srtt_us);
-	printk("current cwnd is: %d", tp->snd_cwnd );
+
 	printk("Reordering: %d", tp->reord_seen );
 
 	printk("cwnd right before starting loss recovery: %d", tp->prior_cwnd );
@@ -293,9 +294,11 @@ static void mptcp_olia_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 	if (ca->mptcp_snd_cwnd_cnt >= (1 << scale) - 1) {
 		if (tp->snd_cwnd < tp->snd_cwnd_clamp)
 			tp->snd_cwnd++;
+			printk("current cwnd is: %d", tp->snd_cwnd );
 		ca->mptcp_snd_cwnd_cnt = 0;
 	} else if (ca->mptcp_snd_cwnd_cnt <= 0 - (1 << scale) + 1) {
 		tp->snd_cwnd = max((int) 1 , (int) tp->snd_cwnd - 1);
+			printk("current cwnd is: %d", tp->snd_cwnd );
 		ca->mptcp_snd_cwnd_cnt = 0;
 	}
 }
