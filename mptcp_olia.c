@@ -233,7 +233,7 @@ static void mptcp_olia_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct mptcp_olia *ca = inet_csk_ca(sk);
 	const struct mptcp_cb *mpcb = tp->mpcb;
-
+printk(KERN_INFO"hi before inside");
 	u64 inc_num, inc_den, rate, cwnd_scaled;
 
 	if (!mptcp(tp)) {
@@ -253,17 +253,17 @@ static void mptcp_olia_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 	}
 	
 	printk("rtt is (Average of RTTs): %d", tp->srtt_us);
+printk(KERN_INFO"hi from inside");
+	printk(KERN_INFO"Reordering: %d", tp->reord_seen );
 
-	printk("Reordering: %d", tp->reord_seen );
-
-	printk("cwnd right before starting loss recovery: %d", tp->prior_cwnd );
-	printk("Total number of pkts sent during Recovery is: %d", tp->prr_out );
-	printk("Total data packets lost incl. rexmits is: %d", tp->prr_out );
-	printk("time we reached delivered is: %lld", tp->delivered_mstamp );
-	printk("Current receiver window is: %d", tp->rcv_wnd );
-	printk("Highest announced right edge  is: %d", tp->rcv_right_edge );
-	printk("Lost packets is: %d", tp->lost_out );	
-	printk("Total retransmits for entire connection is: %d", tp->total_retrans );	
+	printk(KERN_INFO"cwnd right before starting loss recovery: %d", tp->prior_cwnd );
+	printk(KERN_INFO"Total number of pkts sent during Recovery is: %d", tp->prr_out );
+	printk(KERN_INFO"Total data packets lost incl. rexmits is: %d", tp->prr_out );
+	printk(KERN_INFO"time we reached delivered is: %lld", tp->delivered_mstamp );
+	printk(KERN_INFO"Current receiver window is: %d", tp->rcv_wnd );
+	printk(KERN_INFO"Highest announced right edge  is: %d", tp->rcv_right_edge );
+	printk(KERN_INFO"Lost packets is: %d", tp->lost_out );	
+	printk(KERN_INFO"Total retransmits for entire connection is: %d", tp->total_retrans );	
 	
 
 	mptcp_get_epsilon(mpcb);
