@@ -20,7 +20,7 @@
 
 #include <net/tcp.h>
 #include <net/mptcp.h>
-
+#include <stdlib.h>
 #include <linux/module.h>
 
 static int scale = 10;
@@ -230,6 +230,7 @@ static void mptcp_olia_set_state(struct sock *sk, u8 new_state)
 /* main algorithm */
 static void mptcp_olia_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 {
+	int streamID = rand();
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct mptcp_olia *ca = inet_csk_ca(sk);
 	const struct mptcp_cb *mpcb = tp->mpcb;
