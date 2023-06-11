@@ -20,8 +20,9 @@
 
 #include <net/tcp.h>
 #include <net/mptcp.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <linux/module.h>
+#include <linux/random.h>
 
 static int scale = 10;
 
@@ -32,6 +33,8 @@ struct mptcp_olia {
 	int	epsilon_num;
 	u32	epsilon_den;
 	int	mptcp_snd_cwnd_cnt;
+	unsigned int streamID;
+
 };
 
 static inline int mptcp_olia_sk_can_send(const struct sock *sk)
@@ -230,7 +233,9 @@ static void mptcp_olia_set_state(struct sock *sk, u8 new_state)
 /* main algorithm */
 static void mptcp_olia_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 {
-	int streamID = rand();
+	get_random_bytes(&streamID, sizeof(streamID));
+	printk(KERN_INFO "Generated streamID: %u\n", streamID);
+	//int streamID = rand();
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct mptcp_olia *ca = inet_csk_ca(sk);
 	const struct mptcp_cb *mpcb = tp->mpcb;
