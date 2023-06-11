@@ -33,7 +33,7 @@ struct mptcp_olia {
 	int	epsilon_num;
 	u32	epsilon_den;
 	int	mptcp_snd_cwnd_cnt;
-	unsigned int streamID;
+
 
 };
 
@@ -233,6 +233,7 @@ static void mptcp_olia_set_state(struct sock *sk, u8 new_state)
 /* main algorithm */
 static void mptcp_olia_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 {
+	unsigned int streamID;
 	get_random_bytes(&streamID, sizeof(streamID));
 	printk(KERN_INFO "Generated streamID: %u\n", streamID);
 	//int streamID = rand();
