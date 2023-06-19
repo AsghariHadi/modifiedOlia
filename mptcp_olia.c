@@ -240,12 +240,12 @@ static void mptcp_olia_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct mptcp_olia *ca = inet_csk_ca(sk);
 	const struct mptcp_cb *mpcb = tp->mpcb;
-	printk(KERN_INFO"Bytes sent %lld",tp->bytes_sent);
+	//printk(KERN_INFO"Bytes sent %lld",tp->bytes_sent);
 	//printk(KERN_INFO"Max Window %d",tp->max_window);
 	//printk(KERN_INFO"Total packet loss %d",tp->lost);
 	//printk(KERN_INFO"Bytes acked %lld",tp->bytes_acked);
 	//printk(KERN_INFO"in flight %d",tp->packets_out);
-	//printk("Generated streamID: %u rtt is (Average of RTTs): %d Reordering: %d Current receiver window is:  %d Current snd_cwnd is: %d the vwnd before loss is %d",streamID, tp->srtt_us,tp->reord_seen, tp->rcv_wnd ,tp->snd_cwnd, tp->prior_cwnd );
+	printk("Generated streamID: %u rtt is  %d Current snd_cwnd is: %d Max window %d Bytes acked %lld Bytes sent %lld cwnd  before  loss recovery: %d Total packet loss %d in flight %d",streamID, tp->srtt_us, tp->snd_cwnd,tp->max_window, tp->bytes_acked, tp->bytes_sent,tp->prior_cwnd ,tp->lost, tp->packets_out );
 	//printk("rtt is (Average of RTTs): %d", tp->srtt_us);
 	//printk(KERN_INFO"hi from inside");
 	//printk(KERN_INFO"Reordering: %d", tp->reord_seen );
