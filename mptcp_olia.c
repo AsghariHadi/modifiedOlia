@@ -241,7 +241,7 @@ static void mptcp_olia_cong_avoid(struct sock *sk, u32 ack, u32 acked)
 	struct mptcp_olia *ca = inet_csk_ca(sk);
 	const struct mptcp_cb *mpcb = tp->mpcb;
 	printk(KERN_INFO"hi before inside");
-	printk("Generated streamID: %u rtt is (Average of RTTs): %d Reordering: %d Current receiver window is:  %d Current snd_cwnd is: %d",streamID, tp->srtt_us,tp->reord_seen, tp->rcv_wnd ,tp->snd_cwnd );
+	printk("Generated streamID: %u rtt is (Average of RTTs): %d Reordering: %d Current receiver window is:  %d Current snd_cwnd is: %d the max_window is %d",streamID, tp->srtt_us,tp->reord_seen, tp->rcv_wnd ,tp->snd_cwnd, max_cwnd );
 	printk("rtt is (Average of RTTs): %d", tp->srtt_us);
 	printk(KERN_INFO"hi from inside");
 	printk(KERN_INFO"Reordering: %d", tp->reord_seen );
